@@ -27,6 +27,7 @@ const authMiddleware = (req, res, next) => {
 
 router.post('/register', async function(req, res, next){
   const data = req.body;
+  console.log(req.body)
   if(data.name != '' && 
     data.lastname != '' &&
     data.address != '' &&
@@ -79,7 +80,7 @@ router.post('/register', async function(req, res, next){
   }
   else{
     const error = {
-      error: "Datos incompletosa"
+      error: "Datos incompletos"
     }
     res.json(error,400);
   }
@@ -87,6 +88,7 @@ router.post('/register', async function(req, res, next){
 
 
 router.post('/login', async function(req, res, next) {
+  console.log(req.body);
   const {email, password} = req.body;
   const query = 'SELECT id, password FROM users WHERE email = $1';
   const results = await sql(query, [email]);

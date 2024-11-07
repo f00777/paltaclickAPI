@@ -9,6 +9,7 @@ import jwt from "jsonwebtoken";
 import { neon } from '@neondatabase/serverless';
 import indexRouter from "./routes/index.js";
 import authRouter from "./routes/auth.js";
+import cors from "cors";
 
 const app = express();
 const CLAVE = 'aguanteelbulla';
@@ -20,6 +21,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(process.cwd(), 'public')));
+app.use(cors({
+  origin: 'http://127.0.0.1:5500',
+  credentials: true,
+}));
 
 app.use(async function(req, res, next){
     if(req.cookies[AUTH_COOKIE_NAME]){
